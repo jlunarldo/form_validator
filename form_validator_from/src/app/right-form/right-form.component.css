@@ -1,0 +1,219 @@
+/* Panel Derecho */
+.right-panel {
+    width: 60%;
+    padding: 40px;
+    background-color: #fff;
+  }
+  
+  .right-panel h2 {
+    margin-top: 0;
+  }
+  
+  .right-panel a {
+    color: #4C2E83;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  .phone-input-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .dropdown-wrapper, .dropdown-toggle-gender {
+    position: relative;
+  }
+  
+  .dropdown-toggle, .dropdown-toggle-gender {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: bold;
+    cursor: pointer;
+    background-color: #FDC300;
+    color: #4C2E83;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-height: 200px;      
+    overflow-y: auto;       
+  }
+  
+  .dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+  
+  .dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+  }
+  
+  .dropdown-menu li {
+    padding: 5px;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  .code-countrylist{
+    
+      display: flex;
+      flex-direction: row; 
+      align-items: center; 
+      gap: 8px;
+      justify-content: space-between;
+    
+  }
+  .container-name{
+  
+    display: flex;
+  }
+  .input-wrapper {
+    white-space: nowrap;
+  }
+  
+  .input-wrapper label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-wrapper input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+
+  form input,
+  form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #FDC300;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+/* Elimino las flechitas del number en el input  */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+input[type=number] { -moz-appearance:textfield; }
+
+
+
+.error-message{
+  background-color: #f8d7da;  
+  color: #842029;             
+  border: 1px solid #f5c2c7;  
+  padding: 12px 16px;
+  border-radius: 6px;
+  padding: 13px;
+  margin: 5px 0px 5px 0px;
+}
+
+
+.dropdown-toggle-genders {
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-size: bold; */
+  cursor: pointer;
+  background-color: #FDC300;
+  color: #4C2E83;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+}
+.dropdown-toggle-genders,
+.dropdown-toggle-genders:hover,
+.dropdown-toggle-genders:focus, .submenu-genders, .submenu-genders:hover , .submenu-genders:focus {
+  background-color: #FDC300 !important;
+  color: #4C2E83 !important;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.dropdown-menu-gender{
+  background-color: white;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.dropdown-menu-gender ul{
+
+  list-style: none;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+}
+.dropdown-menu-gender li{
+
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+
+  color: rgb(0, 0, 0);
+  width: 100%;
+  justify-content: center;
+}
+
+.dropdown-menu-gender li:hover {
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,2 @@
+export const apiKeyForApiNumValid= "29af59afd2f00b5378b698569359fe56";
+export const apiKeyForApiEmailValid="uwsDmXbM9ssVdGr7zmRSOXZP4WU3tsNw";

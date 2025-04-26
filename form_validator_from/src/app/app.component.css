@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+  width: 80%;
+  max-width: 1000px;
+  height: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden; 
+  }
+app-left-contact,
+app-right-form {
+  display: contents;
+}
