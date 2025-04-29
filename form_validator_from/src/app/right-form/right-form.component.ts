@@ -6,13 +6,22 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 import { firstValueFrom } from 'rxjs';
 import { ApiEmailValidatorService } from '../Servicios/api-email-validator.service';
 import { errorKeys, getErrorMessage } from './utils/error-forms';
-import { errorMessageEmail, errorMessagePhone } from './utils/error_messages';
+import { errorMessageEmail, errorMessageName, errorMessagePassword, errorMessagePhone } from './utils/error_messages';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-right-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule ],
   templateUrl: './right-form.component.html',
-  styleUrl: './right-form.component.css'
+  styleUrl: './right-form.component.css',
+  animations: [
+    trigger('slideAnimation', [
+      state('first', style({ transform: 'translateX(0%)' })),
+      state('second', style({ transform: 'translateX(-100%)' })),
+      transition('first => second', animate('500ms ease-in-out')),
+      transition('second => first', animate('500ms ease-in-out')),
+    ])
+  ]
 })
 export class RightFormComponent   {
 
@@ -29,7 +38,10 @@ export class RightFormComponent   {
   ngOnInit(){
    this.formNum = this.fb.group({
       name: ['', {
-            validators:[Validators.required],
+            validators:[
+              Validators.required,
+              this.onlyLettersAllowed.bind(this)
+            ],
              updateOn: 'blur'
 
       }],
@@ -44,10 +56,30 @@ export class RightFormComponent   {
         updateOn: 'blur', // la validación se hace cuando el campo pierde el foco
       
       }],
-      gender:['', Validators.required]
+      gender:['', Validators.required],
+      password:['', {
+        
+        validators:[
+          Validators.required,
+          this.startsWithSymbol.bind(this),
+          this.secondCharIsUppercase.bind(this),
+          this.hasAtLeastTwoNumbers.bind(this),
+          this.lengthGreaterThanEight.bind(this),
+          this.noSpacesAllowed.bind(this)
+        ],
+        updateOn: 'blur'
+      }],
+      confirmPassword: ['', {
+        validators: [Validators.required,
+                this.equalPassword.bind(this)
+
+              ],
+        updateOn: 'blur'
+       }   ],
+
     });
   
-    //this.loadCountries();
+    this.loadCountries();
     
   }
 
@@ -67,6 +99,11 @@ export class RightFormComponent   {
     return this.formNum.get('gender');
   }
 
+  get password(){
+    return this.formNum.get('password');
+  }
+
+  
   loadCountries():void{
     this.countryService.getCountries().subscribe(response=>{
       this.countryList=response;
@@ -129,10 +166,65 @@ export class RightFormComponent   {
   errorMessageEmail(errorValue: any): { [key: string]: string }{
     return errorMessageEmail(errorValue);
   }
+  errorMessagePassword(errorValue: any): { [key: string]: string }{
+    return errorMessagePassword(errorValue);
+  }
+
+  errorMessageName(errorValue: any): { [key: string]: string }{
+    return errorMessageName(errorValue);
+  }
   errorKeysArray(errors: ValidationErrors | null | undefined): string[]{
     return errorKeys(errors);
   }
   showAllErrorMesagge(errorKey: string, errorValue: any | null | undefined,  errorMessagesFn: (errorValue: any) => { [key: string]: string } ): string {
     return getErrorMessage(errorKey, errorValue, errorMessagesFn);
+  }
+
+
+
+
+  startsWithSymbol(control: AbstractControl): ValidationErrors | null{
+    const symbolRegex = /^[!@#$%^&*()_+\-=\[\]{}\\|,.<>\/?]/;
+    return symbolRegex.test(control.value)? null : {errorSymbol: "Password must start with a symbol."}
+  }
+  
+   secondCharIsUppercase(control: AbstractControl): ValidationErrors | null{
+    const value:string=control.value;
+    const valid = value.length >= 2 && /[A-Z]/.test(value[1]);
+    return valid? null: { errorUppercase: ' Password second character must be uppercase.'}
+    
+  }
+  
+   hasAtLeastTwoNumbers(control: AbstractControl): ValidationErrors | null{
+    const value:string=control.value;
+    const numbers = value.match(/[1-9]/g) || [];
+    const valid = numbers.length >= 2; 
+    return valid? null : {errorNumbers: 'Password must contain at least two numbers.'};
+    
+  }
+  
+   lengthGreaterThanEight(control: AbstractControl):ValidationErrors | null{
+    const value:string=control.value;
+    const valid = value.length > 8;
+    return  value.length > 8 ? null : { errorLength: 'Password must be longer than 8 characters.'}
+     
+  }
+   noSpacesAllowed(control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value;
+   
+    return !value.includes(' ')?null :{ errorNoSpacesAllowe: 'Password must not contain spaces.' }  ;
+  }
+  equalPassword(control: AbstractControl): ValidationErrors | null{
+    const value:string =control.value;
+    const password:string=this.password?.value
+    console.log("Este es value y el otro es password: ", value, password);
+    return  password==value? null: {errorPasswordNotEqual:"Password are not equal"}
+  }
+  onlyLettersAllowed(control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value;
+  
+    // Esta expresión regular verifica que SOLO haya letras (mayúsculas o minúsculas)
+  
+    return  /^[A-Za-z\s]+$/.test(value) ? null : { errorOnlyLettersAllowed: 'Name must contain only letters.' };
   }
 }

@@ -1,93 +1,118 @@
 <div class="right-panel">
-    <h2><strong>Sube de nivel tu marca</strong></h2>
-    <p>Puede comunicarse con nosotros en cualquier momento a través de <a href="mailto:hi@ourcompany.com">hi&#64;ourcompany.com</a></p>
+  <h2><strong>Sube de nivel tu marca</strong></h2>
+  <p>Puede comunicarse con nosotros en cualquier momento a través de <a href="mailto:hi@ourcompany.com">hi&#64;ourcompany.com</a></p>
 
-    <form [formGroup]="formNum">
-      <label for="name">Name</label>
-      <input type="text" id="name" formControlName="name" placeholder="Enter your Name">
-
-      <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email"  placeholder="Enter a valid email address">
-
-      <div *ngIf="formNum.get('email')?.invalid && !formNum.get('email')?.pristine " class="error-message">
-        <div *ngFor="let errorKey of errorKeysArray(formNum.get('email')?.errors)">
-          {{ showAllErrorMesagge(errorKey, formNum.get('email')?.errors![errorKey],errorMessageEmail) }}
-        </div>
-      </div>
-      <!-- <div *ngIf="formNum.get('email')?.invalid && !formNum.get('phone')?.pristine " class="error-message" >Ha salido un error hermanos</div>  -->
-      <div class="input-wrapper">
-      
-      <label for="phone">Phone</label>
-      
-      <div class="phone-input-group">
-        <!-- dropdown -->
-        <div class="dropdown-wrapper">
-          <div class="dropdown-toggle" (click)="toggleDropdown()">
-            {{dialForSend}}
-            {{ isDropdownOpen ? '▲' : '▼' }}
-          </div>
-      
-          <div *ngIf="isDropdownOpen" class="dropdown-menu">
-            <ul>
-              
-              <li *ngFor="let code of countryList" (click)="selectCode(code.code,code.dial)">
-                <div class="code-countrylist"><div class="container-name">{{code.name}}</div><div class="container-dial">{{ code.dial }}</div>  </div>
-                
-              </li>
-            </ul>
-          </div>
-        </div>
-      
-        <!-- input for me phone -->
-        
-         
-          <input type="number" id="phone" formControlName="phone" [placeholder]="phonePlaceholder" >
-          
-        
-      </div>
-      <div *ngIf="formNum.get('phone')?.invalid && !formNum.get('phone')?.pristine " class="error-message">
-        <div *ngFor="let errorKey of errorKeysArray(formNum.get('phone')?.errors)">
-          {{ showAllErrorMesagge(errorKey, formNum.get('hone')?.errors![errorKey],errorMessagePhone) }}
-        </div>
-      </div>
-      </div>
-      <label for="message">Gender</label>
-
-
-      <div class="dropdown-wrapper-gender">
-        <div class="dropdown-toggle-gender" (click)="toggleDropdownGender()">
-          {{ formNum.get('gender')?.value ? formNum.get('gender')?.value : 'SELECT' }}
-          {{ isDropdownGender ? '▲' : '▼' }}
+  <form [formGroup]="formNum">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" placeholder="Enter your Name">
+    <div *ngIf="formNum.get('name')?.invalid && !formNum.get('name')?.pristine " class="error-message">
+      <div *ngFor="let errorKey of errorKeysArray(formNum.get('name')?.errors)">
+        {{ showAllErrorMesagge(errorKey, formNum.get('name')?.errors![errorKey], errorMessageName) }}
+      </div> 
+    </div>
+    
+    <!-- <div *ngIf="formNum.get('email')?.invalid && !formNum.get('phone')?.pristine " class="error-message" >Ha salido un error hermanos</div>  -->
+    <div class="input-wrapper">
+    
+    <label for="phone">Phone</label>
+    
+    <div class="phone-input-group">
+      <!-- dropdown -->
+      <div class="dropdown-wrapper">
+        <div class="dropdown-toggle" (click)="toggleDropdown()">
+          {{dialForSend}}
+          {{ isDropdownOpen ? '▲' : '▼' }}
         </div>
     
-        <div *ngIf="isDropdownGender" class="dropdown-menu-gender" >
-          <ul> 
+        <div *ngIf="isDropdownOpen" class="dropdown-menu">
+          <ul>
             
-            <li *ngFor="let gender of genders" (click)="selectGender(gender)">
-              <div class="genderValue" >{{gender}}</div>
+            <li *ngFor="let code of countryList" (click)="selectCode(code.code,code.dial)">
+              <div class="code-countrylist"><div class="container-name">{{code.name}}</div><div class="container-dial">{{ code.dial }}</div>  </div>
               
             </li>
           </ul>
         </div>
       </div>
-      <!-- <select formControlName="gender" class="dropdown-toggle-genders"  >
-
-        <option value="" disabled selected hidden>Select</option>
-        <option *ngFor="let gender of genders" [value]="gender"  (click)= "selectGender(gender)" class="submenu-genders" >
-          {{gender}}
-        </option>
+    
+      <!-- input for me phone -->
       
-      </select> -->
-      <button  [disabled]="formNum.invalid|| formNum.pending" >NEXT</button>
-      {{formNum.get("name")?.value}}
-      {{formNum.get("name")?.valid}}
-      {{formNum.get("email")?.valid}} 
-      {{formNum.get("phone")?.valid}}
-      {{formNum.get("gender")?.valid}}
-      {{formNum.get("gender")?.value}}
-      {{formNum.get("email")?.value}} 
-      {{formNum.valid}}
-      {{formNum.invalid}}
-      <div class="second-part"></div>
-    </form>
-  </div>
+       
+        <input type="number" id="phone" formControlName="phone" [placeholder]="phonePlaceholder" >
+        
+      
+    </div>
+    <div *ngIf="formNum.get('phone')?.invalid && !formNum.get('phone')?.pristine " class="error-message">
+      <div *ngFor="let errorKey of errorKeysArray(formNum.get('phone')?.errors)">
+        {{ showAllErrorMesagge(errorKey, formNum.get('hone')?.errors![errorKey],errorMessagePhone) }}
+      </div>
+    </div>
+    </div>
+    <label for="message">Gender</label>
+
+
+    <div class="dropdown-wrapper-gender">
+      <div class="dropdown-toggle-gender" (click)="toggleDropdownGender()">
+        {{ formNum.get('gender')?.value ? formNum.get('gender')?.value : 'SELECT' }}
+        {{ isDropdownGender ? '▲' : '▼' }}
+      </div>
+  
+      <div *ngIf="isDropdownGender" class="dropdown-menu-gender" >
+        <ul> 
+          
+          <li *ngFor="let gender of genders" (click)="selectGender(gender)">
+            <div class="genderValue" >{{gender}}</div>
+            
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <select formControlName="gender" class="dropdown-toggle-genders"  >
+
+      <option value="" disabled selected hidden>Select</option>
+      <option *ngFor="let gender of genders" [value]="gender"  (click)= "selectGender(gender)" class="submenu-genders" >
+        {{gender}}
+      </option>
+    
+    
+    </select> -->
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email"  placeholder="Enter a valid email address">
+
+    <div *ngIf="formNum.get('email')?.invalid && !formNum.get('email')?.pristine " class="error-message">
+      <div *ngFor="let errorKey of errorKeysArray(formNum.get('email')?.errors)">
+        {{ showAllErrorMesagge(errorKey, formNum.get('email')?.errors![errorKey],errorMessageEmail) }}
+      </div>
+    </div>
+    <label for="message">Password</label>
+    <input type="password" id="password" formControlName="password" placeholder="Enter a password">
+    <div *ngIf="formNum.get('password')?.invalid && !formNum.get('password')?.pristine " class="error-message">
+      <div *ngFor="let errorKey of errorKeysArray(formNum.get('password')?.errors)">
+        {{ showAllErrorMesagge(errorKey, formNum.get('password')?.errors![errorKey], errorMessagePassword) }}
+      </div> 
+    </div>
+    <ng-container *ngIf="formNum.get('password')?.valid && !formNum.get('password')?.pristine">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm your password">
+    </ng-container>
+    
+    <div *ngIf="formNum.get('confirmPassword')?.invalid && !formNum.get('confirmPassword')?.pristine " class="error-message">
+      <div *ngFor="let errorKey of errorKeysArray(formNum.get('confirmPassword')?.errors)">
+        {{ showAllErrorMesagge(errorKey, formNum.get('confirmPassword')?.errors![errorKey], errorMessagePassword) }}
+      </div> 
+    </div>
+   
+    <button  [disabled]="formNum.invalid|| formNum.pending" >REGISTER</button>
+    <!-- {{formNum.get("name")?.value}}
+    {{formNum.get("name")?.valid}}
+    {{formNum.get("email")?.valid}} 
+    {{formNum.get("phone")?.valid}}
+    {{formNum.get("gender")?.valid}}
+    {{formNum.get("gender")?.value}}
+    {{formNum.get("email")?.value}} 
+    {{formNum.get("password")?.value}} -->
+    {{formNum.get("confirmPassword")?.value}}
+    {{formNum.valid}}
+    {{formNum.invalid}}
+  </form>
+</div>
