@@ -5,23 +5,17 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { ApiEmailValidatorService } from '../Servicios/api-email-validator.service';
-import { errorKeys, getErrorMessage } from './utils/error-forms';
-import { errorMessageEmail, errorMessageName, errorMessagePassword, errorMessagePhone } from './utils/error_messages';
+import { errorKeys, getErrorMessage } from './errors/error-forms';
+import { errorMessageEmail, errorMessageName, errorMessagePassword, errorMessagePhone } from './errors/error_messages';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { emailValid } from './Validators/validators-email';
+import { numIsCorrect } from './Validators/validators-num';
 @Component({
   selector: 'app-right-form',
   imports: [CommonModule, ReactiveFormsModule ],
   templateUrl: './right-form.component.html',
   styleUrl: './right-form.component.css',
-  animations: [
-    trigger('slideAnimation', [
-      state('first', style({ transform: 'translateX(0%)' })),
-      state('second', style({ transform: 'translateX(-100%)' })),
-      transition('first => second', animate('500ms ease-in-out')),
-      transition('second => first', animate('500ms ease-in-out')),
-    ])
-  ]
+  
 })
 export class RightFormComponent   {
 
@@ -79,7 +73,7 @@ export class RightFormComponent   {
 
     });
   
-    this.loadCountries();
+    //this.loadCountries();
     
   }
 
@@ -124,21 +118,22 @@ export class RightFormComponent   {
   } 
 
   async numIsCorrect(control: AbstractControl): Promise<ValidationErrors | null> {
-    const value: string = control.value;
-    let valid = /^[0-9]{10}$/.test(value);
+    // const value: string = control.value;
+    // let valid = /^[0-9]{10}$/.test(value);
 
-    if (valid) {
-      let result: any;
-      let numeroSinPlus = this.dialForSend.substring(1);
+    // if (valid) {
+    //   let result: any;
+    //   let numeroSinPlus = this.dialForSend.substring(1);
 
-      result = await firstValueFrom(this.countryService.validNum(numeroSinPlus + value));
-      console.log("el resultado de result después de salir", result);
-      result ? console.log("result es true") : console.log("result es false");
+    //   result = await firstValueFrom(this.countryService.validNum(numeroSinPlus + value));
+    //   console.log("el resultado de result después de salir", result);
+    //   result ? console.log("result es true") : console.log("result es false");
 
-      return result ? null : { numIsCorrect: "The phone number is incorrect" };
-    } else {
-      return { numIsCorrect: "Phone number invalid" };
-    }
+    //   return result ? null : { numIsCorrect: "The phone number is incorrect" };
+    // } else {
+    //   return { numIsCorrect: "Phone number invalid" };
+    // }
+    return numIsCorrect(control, this.dialForSend,this.countryService);
   }
   selectGender(gender:string){
    
@@ -153,11 +148,12 @@ export class RightFormComponent   {
 //Funciones para Validad el Email
 
   async emailValid(control: AbstractControl): Promise<ValidationErrors | null>{
-    console.log("entre aquí"); 
-    const value:string =control.value;
-    let result=  await firstValueFrom(this.emailService.validEmail(value));
-    console.log(result);
-    return result? null :   { emailIsCorrect: "Email invalid" };
+    // console.log("entre aquí"); 
+    // const value:string =control.value;
+    // let result=  await firstValueFrom(this.emailService.validEmail(value));
+    // console.log(result);
+    // return result? null :   { emailIsCorrect: "Email invalid" };
+    return emailValid(control,this.emailService);
   }
   errorMessagePhone(errorValue: any): { [key: string]: string }{
     return errorMessagePhone(errorValue);

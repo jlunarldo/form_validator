@@ -1,15 +1,19 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /
 
 spring:
     mail:
         host: smtp.gmail.com
         port: 587
-        username: <login user to smtp server>
-        password: <login password to smtp server>
+        username: lunajampier@gmail.com
+        password: tqzkuoqrgedosbaf
         properties:
             mail:
-            smtp:
-            auth: true
-            starttls:
-            enable: true
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
     application:
         name: num_validator
